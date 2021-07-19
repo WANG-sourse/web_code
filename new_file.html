@@ -1,53 +1,81 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>个人存款计算器</title>
-			<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
- 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
- 
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-		<div class="container text-center">
-			<table class="table table-bordered text-center">
-				
-				<tr class="bg-primary">
-					<td colspan="2">个人存款计算器</td>
-				</tr>
-				<tr>
-					<td>存款金额</td>
-					<td><input  class="form-control" type="text" id="amount" placeholder="请输入存款金额"></td>
-				</tr>
-				<tr>
-					<td>存款年限</td>
-					<td>
-						<select id="year" class="form-control">
+
+<head>
+	<meta charset="UTF-8">
+	<title>个人存款计算器</title>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+		function jisuanqi() {
+			var cunkuanjine = document.getElementById("amount").value;/*输入amount值给cunkuanjine*/
+			var regExp = /^[0-9]{2,6}$/;/*正则表达式判断是否合法*/
+			if (!regExp.test(cunkuanjine)) {
+				/*s输入不合法*/
+				document.getElementById("amount").value = "输入不合法，必须是2-6位数字"
+				document.getElementById("amount").style = "color:red"
+				return;/*阻止继续执行*/
+			}
+			var cunkuannum = parseInt(cunkuanjine);/*把文本输入变成数字*/
+			var lilv = document.getElementById("year").value;
+			var lixi = lilv * cunkuannum;
+			var total = lixi + cunkuannum;
+			document.getElementById("lixi").value = lixi;
+			document.getElementById("total").value = total;
+		}
+		function clearcontent() {
+			document.getElementById("amount").value = ''
+			document.getElementById("amount").style = "color:black";
+		}
+	</script>
+</head>
+
+<body>
+	<div class="container text-center">
+		<h1>个人网银-个人存款计算</h1>
+		<table class="table table-bordered text-center">
+
+			<tr class="bg-primary">
+				<td colspan="2">个人存款计算器</td>
+			</tr>
+			<tr>
+				<td>存款金额</td>
+				<td><input onfocus="clearcontent()" class="form-control" type="text" id="amount" placeholder="请输入存款金额">
+				</td>
+			</tr>
+			<tr>
+				<td>存款年限</td>
+				<td>
+					<select id="year" class="form-control">
 						<option value="0.0175">一年（1.75%）</option>
-						<option value="0.0225">二年（2.25%）</option>
-						<option value="0.0275">三年（2.75%）</option>
-						<option value="0.0275">五年（2.75%）</option>
+						<option value="0.045">二年（2.25%）</option>
+						<option value="0.0825">三年（2.75%）</option>
+						<option value="0.1375">五年（2.75%）</option>
 					</select>
-					</td>
-				</tr>
-				<tr>
-					<td>所得利润</td>
-					<td><input  class="form-control" type="text" readonly="readonly" ></td>
-				</tr>
-				<tr>
-					<td>本息合计</td>
-					<td><input  class="form-control" type="text" readonly="readonly" ></td>
-				</tr>
-				<tr>
-					<td colspan="2"><button class="btn btn-block">计算</button></td>
-					
-				</tr>
-			</table>
-			开发者：2013040610 王义博 
+				</td>
+			</tr>
+			<tr>
+				<td>所得利润</td>
+				<td><input id="lixi" class="form-control" type="text" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<td>本息合计</td>
+				<td><input id="total" class="form-control" type="text" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button onclick="jisuanqi()" class="btn btn-block bg-primary">计算</button></td>
+
+			</tr>
+		</table>
+		开发者：2013040610 王义博
 		</form>
-	</body>
+</body>
+
 </html>
